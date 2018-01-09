@@ -1,0 +1,1 @@
+module.exports = { prefix: 'fas', iconName: 'address-book', icon: [448 , 512 , [], f2b9, "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z M0 0h24v24H0z"]  }
