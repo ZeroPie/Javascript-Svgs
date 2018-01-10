@@ -1,13 +1,12 @@
 var gulp = require('gulp');
 var webpack = require('gulp-webpack');
 
-
 gulp.task('default', function() {
-  return gulp.src('src/entry.js')
+    return gulp.src('src/index.js')
     .pipe(webpack({
-      output:{
-        filename: 'famine.js',
-      }
+        output:{
+            filename: 'fap.js',
+        }
     }))
     .pipe(gulp.dest('dist/'));
 });
