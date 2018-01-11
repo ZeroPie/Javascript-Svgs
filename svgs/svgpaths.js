@@ -1,1 +1,0 @@
-/Users/alejandro.palacios/Documents/Github/fap/svgs/msHome.svg,/Users/alejandro.palacios/Documents/Github/fap/svgs/msHome2.svg,/Users/alejandro.palacios/Documents/Github/fap/svgs/msHome1.svg,/Users/alejandro.palacios/Documents/Github/fap/svgs/msHome3.svg,/Users/alejandro.palacios/Documents/Github/fap/svgs/msHome5.svg,/Users/alejandro.palacios/Documents/Github/fap/svgs/msHome4.svg
