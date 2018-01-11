@@ -1,0 +1,2 @@
+var svgFilePaths = ["/Users/maverickpie/Documents/GitHub/fap/svgs/msHome.svg","/Users/maverickpie/Documents/GitHub/fap/svgs/msHome1.svg","/Users/maverickpie/Documents/GitHub/fap/svgs/msHome2.svg","/Users/maverickpie/Documents/GitHub/fap/svgs/msHome3.svg","/Users/maverickpie/Documents/GitHub/fap/svgs/msHome4.svg","/Users/maverickpie/Documents/GitHub/fap/svgs/msHome5.svg" ]; 
+module.exports = svgFilePaths;
