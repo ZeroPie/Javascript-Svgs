@@ -1,18 +1,13 @@
-const fs = require('fs');
+var fs = require('fs');
+var util = require('util');
 
-var path = 'node_modules/@fortawesome/fontawesome-meinestadts/index.js';  
-var buffer = new Buffer("test");
+var icon = require('./msHome.js');
+var filename = icon.iconName.replace(/-/g, "");
+var filepath = 'node_modules/@fortawesome/fontawesome-meinestadt/index.js';
+var content = `var ${filename} = ${util.inspect(icon)};`;
 
-fs.open(path, 'w', function(err, fd) {  
-    if (err) {
-        throw 'could not open file: ' + err;
-    }
-
-    // write the contents of the buffer, from position 0 to the end, to the file descriptor returned in opening our file
-    fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-        if (err) throw 'error writing file: ' + err;
-        fs.close(fd, function() {
-            console.log('wrote the file successfully');
-        });
-    });
-});
+try{
+    fs.writeFileSync(filepath, content, 'utf-8');
+}catch (e){
+    console.log("Could not write to fontawesome-meinestadt index.js file ", e);
+}

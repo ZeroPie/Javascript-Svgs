@@ -1,14 +1,16 @@
+
+
 var parse = require('parse-svg-path');
 var extract = require('extract-svg-path');
 var regExp = new RegExp("\\*");
 var fs = require('fs');
-var stream = fs.createWriteStream("node_modules/@fortawesome/fontawesome-meinestadt/faHome.js");
+var stream = fs.createWriteStream("node_modules/@fortawesome/fontawesome-meinestadt/msHome.js");
 
 var path = extract(`faHome.svg`);
 var svgpath = parse(path);
 
 var prefix = "prefix: 'fas'";
-var iconName = "iconName: 'ms-homeJs'";
+var iconName = "iconName: 'mshomeJs'";
 var viewBoxX = "512";
 var viewBoxY = "512";
 var children = '[]';

@@ -46,12 +46,11 @@
 
 	const fontawesome = __webpack_require__ (1);
 
-	//const brands = require ('@fortawesome/fontawesome-free-brands');
 	const meinestadt = __webpack_require__ (3);
 
 
 
-	//fontawesome.library.add(brands, meinestadt)
+
 
 
 /***/ }),
@@ -2042,10 +2041,7 @@
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/*!
-	 * Font Awesome Free 5.0.2 by @fontawesome - http://fontawesome.com
-	 * License - http://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
-	 */
+	/* WEBPACK VAR INJECTION */(function(process) {
 	(function (global, factory) {
 		 true ? factory(exports) :
 		typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -2064,17 +2060,9 @@
 
 	var WINDOW = _WINDOW;
 
-
-
-
 	var IS_IE = ~userAgent.indexOf('MSIE') || ~userAgent.indexOf('Trident/');
 
 	var NAMESPACE_IDENTIFIER = '___FONT_AWESOME___';
-
-
-
-
-
 
 
 	var PRODUCTION = function () {
@@ -2160,9 +2148,9 @@
 	}
 
 	var prefix = "fas";
-	var faHome = { prefix: 'fas', iconName: 'ms-homeJs', icon: [512 , 512 , [], "f2b9", "m205.199997,510.000013l0,-178.941181l101.599998,0l0,178.941181l126.999998,0l0,-238.588242l76.199999,0l-253.999996,-268.411772l-253.999996,268.411772l76.199999,0l0,238.588242l126.999998,0z m93,0l24,0l0,24l-24,0l0,-24z"] };
+	var msHome = { prefix: 'fas', iconName: 'ms-homeJs', icon: [512 , 512 , [], "f2b9", "m205.199997,510.000013l0,-178.941181l101.599998,0l0,178.941181l126.999998,0l0,-238.588242l76.199999,0l-253.999996,-268.411772l-253.999996,268.411772l76.199999,0l0,238.588242l126.999998,0z m93,0l24,0l0,24l-24,0l0,-24z"] };
 	var icons$1 = {
-	  faHome: faHome,
+	  msHome: msHome,
 	};
 
 	bunker(function () {
@@ -2171,7 +2159,7 @@
 
 	exports['default'] = icons$1;
 	exports.prefix = prefix;
-	exports.faHome = faHome;
+	exports.msHome = msHome;
 	Object.defineProperty(exports, '__esModule', { value: true });
 
 	})));

@@ -1,4 +1,3 @@
-module.exports = 
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -106,9 +105,9 @@ function define(prefix, icons) {
 }
 
 var prefix = "fas";
-var faHome = { prefix: 'fas', iconName: 'ms-homeJs', icon: [512 , 512 , [], "f2b9", "m205.199997,510.000013l0,-178.941181l101.599998,0l0,178.941181l126.999998,0l0,-238.588242l76.199999,0l-253.999996,-268.411772l-253.999996,268.411772l76.199999,0l0,238.588242l126.999998,0z m93,0l24,0l0,24l-24,0l0,-24z"] };
+var msHome = { prefix: 'fas', iconName: 'msHome', icon: [512 , 512 , [], "f2b9", "m205.199997,510.000013l0,-178.941181l101.599998,0l0,178.941181l126.999998,0l0,-238.588242l76.199999,0l-253.999996,-268.411772l-253.999996,268.411772l76.199999,0l0,238.588242l126.999998,0z m93,0l24,0l0,24l-24,0l0,-24z"] };
 var icons$1 = {
-  faHome: faHome,
+  msHome: msHome,
 };
 
 bunker(function () {
@@ -117,7 +116,7 @@ bunker(function () {
 
 exports['default'] = icons$1;
 exports.prefix = prefix;
-exports.faHome = faHome;
+exports.msHome = msHome;
 Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
