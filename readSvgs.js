@@ -1,6 +1,4 @@
 var fs = require('fs');
-var dirname;
-var filename;
 
 function readFiles(dirname, onFileContent, onError) {
   fs.readdir(dirname, function(err, filenames) {
@@ -21,7 +19,7 @@ function readFiles(dirname, onFileContent, onError) {
 }
 //Store
 var data = {};
-readFiles('dirname/', function(filename, content) {
+readFiles('svgs/', function(filename, content) {
   data[filename] = content;
 }, function(err) {
   throw err;
