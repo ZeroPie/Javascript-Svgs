@@ -1,6 +1,5 @@
 var parse = require('parse-svg-path');
 var extract = require('extract-svg-path');
-var regExp = new RegExp("\\*");
 var fs = require('fs');
 var stream = fs.createWriteStream("node_modules/@fortawesome/fontawesome-meinestadt/msHome.js");
 
