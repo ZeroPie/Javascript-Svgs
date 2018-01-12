@@ -3,9 +3,8 @@ var path = require('path');
 var svgsFilePaths = require('./svgs/svgFilePaths.js');
 var parse = require('parse-svg-path');
 var extract = require('extract-svg-path');
-var dirpath = "node_modules/@fortawesome/fontawesome-meinestadt/";
 var jesusifiedSvgs = []; 
-var filepath = './jsvgs/index.js';
+
 var dir = 'node_modules/@fortawesome/fontawesome-meinestadt/';
 var dir2 = 'jsvgs';
 
@@ -23,6 +22,10 @@ for (let svgFilePath of svgsFilePaths) {
         });
     writeStream.end(); 
 }
+
+//create index file:
+var filepath = './jsvgs/index.js';
+
 
 try{
     fs.writeFileSync(filepath, jesusifiedSvgs.join(""), 'utf-8');

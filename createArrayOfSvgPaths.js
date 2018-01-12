@@ -26,5 +26,4 @@ readdirp(settings,
       console.log("could not write array of svg file paths to convert", e);
     }
   } 
-
 )
