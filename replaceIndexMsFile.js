@@ -1,6 +1,5 @@
 const fs = require('fs');
 
-
 fs.readFile("./jsvgs/index.js", function(err, content) {
     if (err) throw err;
     if(content.indexOf('exports') >= 0){
