@@ -5,8 +5,6 @@ var parse = require('parse-svg-path');
 var extract = require('extract-svg-path');
 var dirpath = "node_modules/@fortawesome/fontawesome-meinestadt/";
 
-console.log(svgsFilePaths);
-
 
 for (let svgFilePath of svgsFilePaths) {
     var filename = path.basename(svgFilePath, path.extname(svgFilePath));
