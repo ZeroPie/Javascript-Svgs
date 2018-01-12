@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "fap": "node createMsFontsFolder && node createSvgWithJs && node createIndexMsFile gulp"
+    "fap": "node createArrayofSvgsPaths && node createJsOutOfSvgs gulp"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +17,6 @@
     "extract-svg-path": "^2.1.0",
     "gulp": "^3.9.1",
     "gulp-webpack": "^1.5.0",
-    "klaw": "^2.1.1",
     "parse-svg-path": "^0.1.2",
     "readdirp": "^2.1.0"
   }
