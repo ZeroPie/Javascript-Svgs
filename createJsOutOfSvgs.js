@@ -13,9 +13,7 @@ for (let svgFilePath of svgsFilePaths) {
         javascriptSvgs.push(svgToJavascriptVariable(svgFilePath, filename));
     var writeStream = fs.createWriteStream(`./${directoryOfJsSvgs}/${filename}.js`);
         writeStream.write(svgToJavascriptSvg(svgFilePath, filename));
-        writeStream.on('finish', () => {      
-            console.log(`cheese`);
-        });
+        console.log(`${path.basename(svgFilePath)} => ${directoryOfJsSvgs}/${filename}.js`);
         writeStream.end(); 
 }
 
