@@ -1,15 +1,15 @@
-var readdirp = require('readdirp');
-var path = require('path');
-var es = require('event-stream');
 var fs = require('fs');
+var path = require('path');
+var readdirp = require('readdirp');
 var util = require('util');
 var filepath = './svgs/svgFilePaths.js';
 
 var svgFilePaths = [];
   var settings = {
-    root: './svgs',
+    root: './svgs/test',
     entryType: 'files',
     fileFilter: [ '*.svg' ],
+    depth: 1
   };
   
 readdirp(settings, 
