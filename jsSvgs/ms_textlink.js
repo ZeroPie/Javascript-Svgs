@@ -1,0 +1,1 @@
+module.exports = { prefix: 'fas', iconName: 'ms_textlink', icon: [100 , 100 , [], "f2b9", "M14.4,12H0.1V0h14.3l0,0l0,0l6.7,6L14.4,12z M12.1,4c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S13.2,4,12.1,4z"] };
