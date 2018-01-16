@@ -5,6 +5,7 @@ var util = require('util');
 
 var svgsFilePaths = require('./svgs/svgFilePaths.js');
 var listOfSvgs = {}; 
+var listOfSvgsArray = [];
 let writeStream = fs.createWriteStream('listOfSvgs.js');
   
 
@@ -15,7 +16,7 @@ for (let svgFilePath of svgsFilePaths) {
       data,
       {
         svgo: true,
-        title: '',
+        title: filename,
         pathsKey: '',
         pretty: true,
         key: 'all',

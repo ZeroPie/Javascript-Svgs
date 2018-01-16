@@ -4,25 +4,34 @@ const svgson = require('svgson');
 var parse = require('parse-svg-path');
 var extract = require('extract-svg-path');
 var svgsFilePaths = require('./svgs/svgFilePaths.js');
+var indexFilepath = './jsSvgs/index.js';
 var directoryOfJsSvgs = 'jsSvgs';
-var jsonSvgs = require('./listOfSvgs.json');
 var javascriptSvgs = []; 
+var svgsAttributes = require('./listOfSvgs.js');
 
 if (!fs.existsSync(directoryOfJsSvgs)){
     fs.mkdirSync(directoryOfJsSvgs);
 }
-console.log(jsonSvgs);
+
+console.log(svgsAttributes);
+
 
 for (let svgFilePath of svgsFilePaths) {
     var filename = path.basename(svgFilePath, path.extname(svgFilePath)).replace(/-/g, "_");
         javascriptSvgs.push(svgToJavascriptVariable(svgFilePath, filename));
-        //javascriptSvgs.push(createJsonOfSvgs(svgFilePath, filename, directoryOfJsSvgs));
 
     var writeStream = fs.createWriteStream(`./${directoryOfJsSvgs}/${filename}.js`);
         writeStream.write(svgToJavascriptSvg(svgFilePath, filename));
         console.log(`${path.basename(svgFilePath)} => ${directoryOfJsSvgs}/${filename}.js`);
         writeStream.end(); 
 }
+
+try{
+    fs.writeFileSync(indexFilepath, javascriptSvgs.join("\n"), 'utf-8');
+}catch (e){
+    console.log("Could not write fontawesome index.js file ", e);
+}
+
 
 
 function svgToJavascriptSvg(svgFilePath, filename) {
