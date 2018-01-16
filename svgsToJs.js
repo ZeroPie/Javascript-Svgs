@@ -3,19 +3,18 @@ var path = require('path');
 const svgson = require('svgson');
 var parse = require('parse-svg-path');
 var extract = require('extract-svg-path');
+
 var svgsFilePaths = require('./svgs/svgFilePaths.js');
-var indexFilepath = './jsSvgs/index.js';
-var directoryOfJsSvgs = 'jsSvgs';
-var javascriptSvgs = []; 
 var svgsAttributes = require('./listOfSvgs.js');
 
+var directoryOfJsSvgs = 'jsSvgs';
 if (!fs.existsSync(directoryOfJsSvgs)){
     fs.mkdirSync(directoryOfJsSvgs);
 }
 
-console.log(svgsAttributes);
+console.log(svgsAttributes); //Todo: use this to get the Viewbox of Svgs with weird sizes..
 
-
+var javascriptSvgs = []; 
 for (let svgFilePath of svgsFilePaths) {
     var filename = path.basename(svgFilePath, path.extname(svgFilePath)).replace(/-/g, "_");
         javascriptSvgs.push(svgToJavascriptVariable(svgFilePath, filename));
@@ -26,13 +25,14 @@ for (let svgFilePath of svgsFilePaths) {
         writeStream.end(); 
 }
 
+var indexFilepath = './jsSvgs/index.js';
 try{
     fs.writeFileSync(indexFilepath, javascriptSvgs.join("\n"), 'utf-8');
 }catch (e){
     console.log("Could not write fontawesome index.js file ", e);
 }
 
-
+//Todo: merge these 2:
 
 function svgToJavascriptSvg(svgFilePath, filename) {
     var svgPath = extract(svgFilePath);
