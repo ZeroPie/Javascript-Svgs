@@ -12,6 +12,7 @@ if (!fs.existsSync(directoryOfJsSvgs)){
     fs.mkdirSync(directoryOfJsSvgs);
 }
 
+console.log('svgsToJs.js Attrs from SvgList:');
 console.log(svgsAttributes); //Todo: use this to get the Viewbox of Svgs with weird sizes..
 
 var javascriptSvgs = []; 
