@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "fap": "node svgLocations && node svgsToJson && node makeModule && node svgsToJs && node appendToIndexFile && gulp"
+    "fap": "cd scripts node svgLocations && node svgsToJson && node makeModule && node svgsToJs && node appendToIndexFile && gulp"
   },
   "keywords": [],
   "author": "",
