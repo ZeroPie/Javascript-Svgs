@@ -1,4 +1,9 @@
-module.exports = { ms_city_badge: 
+module.exports = { einkauf: 
+   { name: 'svg',
+     attrs: { fillRule: 'evenodd', viewBox: '0 0 44 44' },
+     childs: [ [Object] ],
+     title: 'einkauf' },
+  ms_city_badge: 
    { name: 'svg',
      attrs: 
       { xmlns: 'http://www.w3.org/2000/svg',
@@ -12,13 +17,11 @@ module.exports = { ms_city_badge:
         viewBox: '0 0 242.18 243.43' },
      childs: [ [Object], [Object] ],
      title: 'ms_dichte_hoch' },
-  ms_dichte_mittel: 
+  ms_gewitter: 
    { name: 'svg',
-     attrs: 
-      { xmlns: 'http://www.w3.org/2000/svg',
-        viewBox: '0 0 242.18 243.43' },
+     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
      childs: [ [Object], [Object] ],
-     title: 'ms_dichte_mittel' },
+     title: 'ms_gewitter' },
   ms_firma: 
    { name: 'svg',
      attrs: 
@@ -26,18 +29,13 @@ module.exports = { ms_city_badge:
         viewBox: '0 0 59.4 84.1' },
      childs: [ [Object], [Object] ],
      title: 'ms_firma' },
-  ms_gewitter: 
-   { name: 'svg',
-     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
-     childs: [ [Object], [Object] ],
-     title: 'ms_gewitter' },
-  ms_hansestadt: 
+  ms_dichte_mittel: 
    { name: 'svg',
      attrs: 
       { xmlns: 'http://www.w3.org/2000/svg',
-        viewBox: '0 0 59.84 30.77' },
+        viewBox: '0 0 242.18 243.43' },
      childs: [ [Object], [Object] ],
-     title: 'ms_hansestadt' },
+     title: 'ms_dichte_mittel' },
   ms_n_gewitter: 
    { name: 'svg',
      attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
@@ -48,11 +46,13 @@ module.exports = { ms_city_badge:
      attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
      childs: [ [Object] ],
      title: 'ms_n_klar' },
-  ms_n_nebel: 
+  ms_hansestadt: 
    { name: 'svg',
-     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
-     childs: [ [Object] ],
-     title: 'ms_n_nebel' },
+     attrs: 
+      { xmlns: 'http://www.w3.org/2000/svg',
+        viewBox: '0 0 59.84 30.77' },
+     childs: [ [Object], [Object] ],
+     title: 'ms_hansestadt' },
   ms_notification_bell: 
    { name: 'svg',
      attrs: 
@@ -63,11 +63,11 @@ module.exports = { ms_city_badge:
         strokeMiterlimit: '1.414' },
      childs: [ [Object] ],
      title: 'ms_notification_bell' },
-  ms_safari_pin_icon: 
+  ms_n_nebel: 
    { name: 'svg',
-     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '18 -14 75 68' },
-     childs: [ [Object], [Object] ],
-     title: 'ms_safari_pin_icon' },
+     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
+     childs: [ [Object] ],
+     title: 'ms_n_nebel' },
   ms_regenwahrscheinlichkeit: 
    { name: 'svg',
      attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
@@ -78,6 +78,11 @@ module.exports = { ms_city_badge:
      attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
      childs: [ [Object], [Object] ],
      title: 'ms_sonnenstunden' },
+  ms_safari_pin_icon: 
+   { name: 'svg',
+     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '18 -14 75 68' },
+     childs: [ [Object], [Object] ],
+     title: 'ms_safari_pin_icon' },
   ms_sortierfunktion_hover: 
    { name: 'svg',
      attrs: 
@@ -85,6 +90,11 @@ module.exports = { ms_city_badge:
         viewBox: '0 0 19.9 14.3' },
      childs: [ [Object] ],
      title: 'ms_sortierfunktion_hover' },
+  ms_t_bedeckt: 
+   { name: 'svg',
+     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
+     childs: [ [Object], [Object] ],
+     title: 'ms_t_bedeckt' },
   ms_sortierfunktion: 
    { name: 'svg',
      attrs: 
@@ -92,16 +102,16 @@ module.exports = { ms_city_badge:
         viewBox: '0 0 19.9 14.3' },
      childs: [ [Object] ],
      title: 'ms_sortierfunktion' },
-  ms_t_bedeckt: 
-   { name: 'svg',
-     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
-     childs: [ [Object], [Object] ],
-     title: 'ms_t_bedeckt' },
   ms_t_bewoelkt: 
    { name: 'svg',
      attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
      childs: [ [Object], [Object] ],
      title: 'ms_t_bewoelkt' },
+  ms_t_schauer: 
+   { name: 'svg',
+     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
+     childs: [ [Object], [Object], [Object] ],
+     title: 'ms_t_schauer' },
   ms_t_schnee: 
    { name: 'svg',
      attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
@@ -112,11 +122,6 @@ module.exports = { ms_city_badge:
      attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
      childs: [ [Object], [Object] ],
      title: 'ms_temp' },
-  ms_t_schauer: 
-   { name: 'svg',
-     attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 100 100' },
-     childs: [ [Object], [Object], [Object] ],
-     title: 'ms_t_schauer' },
   ms_textlink: 
    { name: 'svg',
      attrs: { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 21.1 12' },

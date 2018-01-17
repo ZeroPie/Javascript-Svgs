@@ -11,6 +11,7 @@ let writeStream = fs.createWriteStream('listOfSvgs.js');
 
 for (let svgFilePath of svgsFilePaths) {
   fs.readFile(svgFilePath, 'utf-8', function(err, data) {
+    console.log(svgFilePath);
     var filename = path.basename(svgFilePath, path.extname(svgFilePath)).replace(/-/g, "_");
     svgson(
       data,
@@ -21,6 +22,7 @@ for (let svgFilePath of svgsFilePaths) {
         pretty: true,
         key: 'all',
       },
+      
       function(result) {
         //console.log(result);
         listOfSvgs[filename] = result;
