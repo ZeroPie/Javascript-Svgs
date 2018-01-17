@@ -18,14 +18,13 @@ for (let svgFilePath of svgsFilePaths) {
       {
         svgo: true,
         title: filename,
-        pathsKey: '',
+        pathsKey: 'myPaths',
         pretty: true,
         key: 'all',
       },
       
       function(result) {
-        //console.log(result);
-        listOfSvgs[filename] = result;
+        listOfSvgs[`${filename}`] = result;
         fs.writeFile('./listOfSvgs.js', util.inspect(listOfSvgs), 'utf-8');
       }
     )

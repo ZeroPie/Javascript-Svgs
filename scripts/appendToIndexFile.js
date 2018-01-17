@@ -8,7 +8,8 @@ var allJsSvgs = require('./../jsSvgs');
 console.log('all svgs', allJsSvgs);
 
 for (icon in icons) {
-    icons$1[icon] = icon.replace(/\'/, "");
+    icons$1[icon] = icon;
+    //.replace(/\'/, "");
 }
 
 //console.log(icons$1);
@@ -16,7 +17,7 @@ for (icon in icons) {
 
 try{
     var data = fs.readFileSync('testindex.js').toString().split("\n");
-        data.splice(100, 0, `var icons$1 = ${util.inspect(icons$1)}`);
+        data.splice(100, 0, `var icons$1 = ${util.inspect(icon.replace(/\'/, ""))}`);
     var text = data.join("\n");
 
     fs.writeFileSync('indexAfter.js', text, function (err) {
