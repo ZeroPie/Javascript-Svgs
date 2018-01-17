@@ -97,8 +97,7 @@ if (prefix === 'fas') {
 }
 }
 
-
-var icons$1 = 'ms_textlink'
+var icons$ = {einkauf:einkauf,ms_city_badge:ms_city_badge,ms_dichte_hoch:ms_dichte_hoch,ms_dichte_mittel:ms_dichte_mittel,ms_firma:ms_firma,ms_gewitter:ms_gewitter,ms_hansestadt:ms_hansestadt,ms_n_gewitter:ms_n_gewitter,ms_n_klar:ms_n_klar,ms_n_nebel:ms_n_nebel,ms_notification_bell:ms_notification_bell,ms_regenwahrscheinlichkeit:ms_regenwahrscheinlichkeit,ms_safari_pin_icon:ms_safari_pin_icon,ms_sonnenstunden:ms_sonnenstunden,ms_sortierfunktion_hover:ms_sortierfunktion_hover,ms_sortierfunktion:ms_sortierfunktion,ms_t_bedeckt:ms_t_bedeckt,ms_t_bewoelkt:ms_t_bewoelkt,ms_t_schauer:ms_t_schauer,ms_t_schnee:ms_t_schnee,ms_temp:ms_temp,ms_textlink:ms_textlink};
 bunker(function () {
 define('fas', icons$1);
 });

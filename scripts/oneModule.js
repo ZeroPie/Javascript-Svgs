@@ -28,16 +28,18 @@ var allSvgs = [];
 var svgsAsJsonsArray = [];
 var svgsAsJsonsObj = {};
 var variableNames = [];
+var icons$1obj = {};
+var icons$1arr = [];
 
 for(var i = 0; i < svgFilepaths.length; i++){ 
     createArrayOfVariableNames(svgFilepaths);
     readSvgintoArray(svgFilepaths); 
     svgson(allSvgs[i], getsvgsonConfig(),(result) => {
+      createIcons$1(svgFilepaths, result);
       chewJson(result);
      }
     )
 }
-
 
 
 function chewJson(result) {
@@ -45,6 +47,7 @@ function chewJson(result) {
   saveSvgsInObject(result);
   saveSvgsInArray(result);
   buildJavascriptSvg(result);
+  
 }
 
 function saveSvgsInObject(result){
@@ -75,13 +78,32 @@ function createArrayOfVariableNames(svgFilepaths){
   variableNames[i] = path.basename(svgFilepaths[i], path.extname(svgFilepaths[i])).replace(/-/g, "_"); 
 }
 
+function createIcons$1(result){
+  //turn - into _ and remove file extension
+  var icon = path.basename(svgFilepaths[i], path.extname(svgFilepaths[i])).replace(/-/g, "_"); 
+  icons$1arr[i] = `${icon}:${icon}`;
+  icons$1obj[icon]= icon;
+}
+
+var icons$ = `var icons$ = {${icons$1arr.toString()}};`;
+
+//replace/insert stuff in index.js file
+
+var indexfile = sander.readFileSync("testindex.js").toString().split("\n");
+    indexfile.splice(100, 0, icons$);
+    var text = indexfile.join("\n");
+    console.log(text);
+    fs.writeFileSync('indexAfter.js', text, function (err) {
+      if (err) return console.log(err);
+    });
+  console.log('readFileSync complete');
 
 
-console.log(variableNames);
-console.log(svgsAsJsonsObj[2]);
-console.log('');
-console.log(svgsAsJsonsArray[2]);
+sander.writeFileSync( 'icons', 'icons$.js', icons$);
 
-sander.writeFileSync( 'svgsAsJsonsObj.json', util.inspect(svgsAsJsonsObj) , svgsAsJsonsObj);
-sander.writeFileSync( 'svgsAsJsonsArray.json', util.inspect(svgsAsJsonsArray) , svgsAsJsonsArray);
+//experiments/debugging/testing:
+//sander.writeFileSync( 'icons', 'icons$1arr.js' , util.inspect(icons$1arr));
+//sander.writeFileSync( 'icons', 'icons$1obj.js' , util.inspect(icons$1obj));
+//sander.writeFileSync( 'icons', 'svgsAsJsonsObj.json', util.inspect(svgsAsJsonsObj));
+//sander.writeFileSync( 'icons', 'svgsAsJsonsArray.json', util.inspect(svgsAsJsonsArray));
 

@@ -1,4 +1,4 @@
-(function (global, factory) {
+module.exports = (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
     (factory((global['fontawesome-free-solid'] = {})));
@@ -124,17 +124,17 @@
   
   
   var icons$1 = {
-  ms_t_bedeckt: ms_t_bedeckt,
   ms_t_schnee: ms_t_schnee,
   ms_firma: ms_firma,
   ms_temp: ms_temp,
   ms_city_badge: ms_city_badge,
+  ms_firma: ms_firma,
   };
   
     //https://stackoverflow.com/questions/27352389/how-to-append-to-a-file-on-particular-position-using-node-js
     (function (icons$1) { 
         for(var icon in icons$1){
-          console.log(icon);
+            console.log(icon);
         }
     })(icons$1);
   
