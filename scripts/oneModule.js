@@ -6,8 +6,10 @@ var svgson = require('svgson');
 var readDir = require('readdir');
 var parse = require('parse-svg-path');
 var extract = require('extract-svg-path');
+var extractViewbox = require('extract-svg-viewbox')
 var dirpath = './../svgs/test/';
 var svgFilepaths = readDir.readSync(dirpath , ['**.svg'], readDir.ABSOLUTE_PATHS);
+var normalize = require('normalize-svg-coords');
 console.log(svgFilepaths);
 
 var allSvgs = [];
@@ -54,6 +56,9 @@ function saveSvgsInArray(result){
 
 function readSVGContentIntoArray(svgFilepaths){
   allSvgs[i] = sander.readFileSync(`${svgFilepaths[i]}`).toString('utf8');     //reads Buffer ergo to String
+  //TODO: maybe dont parse as json at all!!!!: -->>
+  var viewBox = extractViewbox(allSvgs[i]);
+
 }
 
 function getviewBox(result){
@@ -65,37 +70,50 @@ function getviewBox(result){
 
 function createArrayOfVariableNames(svgFilepaths, result){
   getviewBox(result);
+  var svgPath = extract(svgFilepaths[i]);
+  //var svgParsedPath = parse(svgPath);
   var fileName = path.basename(svgFilepaths[i], path.extname(svgFilepaths[i])).replace(/-/g, "_");
   var variableName = `var ${fileName} =`; 
   var iconName = `iconName: '${fileName}'`;
-  var variableContent = `{ ${iconsPrefix} ${iconName} };`;
-  //turn - into _ and remove file extension
-  svgsAsVariablesArr[i] = `${variableName}${variableContent}`;
-  svgsAsVariablesObj = `${variableName} ${variableContent}`;
-
-
-
-
-  var svgObject = {
-    prefix: 'fas',
-    iconName : `iconName: '${fileName}'`,
+  var originalViewBox = result.attrs.viewBox.replace(/\./g, "");
+  var viewBox = {
+    minx: 0,
+    miny: 0,
+    width: 512,
+    height: 512,
   }
+  var normalizedPath = normalize({
+    viewBox: `${viewBox.minx} ${viewBox.miny} ${viewBox.width} ${viewBox.height}`,
+    path: svgPath,
+    min: 0,
+    max: 1,
+    asList: false
+  })
+
+  var children = '[]';
+  var uniCode = `${fileName.slice(1, -1)}`; //TODO n Stuff
+  var icon = `icon: [${viewBox.width} , ${viewBox.height} , ${children}, "${uniCode}", "${normalizedPath}"]`;
+
+  var content = `{ ${iconsPrefix}, ${iconName}, ${icon}}`;
+  svgsAsVariablesArr[i] = `${variableName}${content}`;
+  
 }
 
 
 
 
 function createIcons$1(result){
-  //turn - into _ and remove file extension
   var icon = path.basename(svgFilepaths[i], path.extname(svgFilepaths[i])).replace(/-/g, "_"); 
   icons$1arr[i] = `${icon}:${icon}`;
-  //icons$1obj[icon]= icon;
 }
 
 
-var icons$ = `var icons$ = {${icons$1arr.toString()}};`;
-var svgsAsVariablesArr = `${svgsAsVariablesArr.toString()};`;
 
+
+var icons$ = `var icons$ = {${icons$1arr.toString()}};`;
+var svgsAsVariablesArr = `${svgsAsVariablesArr.join('\n')};`;
+
+console.log(svgsAsVariablesArr);
 
 //replace/insert stuff in index.js file
 var indexfile = sander.readFileSync("testindex.js").toString().split("\n");
