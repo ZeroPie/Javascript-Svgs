@@ -97,6 +97,8 @@ if (prefix === 'fas') {
 }
 }
 
+var prefix = "fas";
+
 
 bunker(function () {
 define('fas', icons$1);

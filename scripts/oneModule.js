@@ -79,22 +79,21 @@ function createArrayOfVariableNames(svgFilepaths, result){
   var viewBox = {
     minx: 0,
     miny: 0,
-    width: 512,
-    height: 512,
+    width: 100,
+    height: 100,
   }
   var normalizedPath = normalize({
     viewBox: `${viewBox.minx} ${viewBox.miny} ${viewBox.width} ${viewBox.height}`,
     path: svgPath,
-    min: 0,
-    max: 1,
     asList: false
   })
 
   var children = '[]';
-  var uniCode = `${fileName.slice(1, -1)}`; //TODO n Stuff
-  var icon = `icon: [${viewBox.width} , ${viewBox.height} , ${children}, "${uniCode}", "${normalizedPath}"]`;
+  var uniCode = "f2b9";
+  var uniCodef = `${fileName.slice(1, -1)}`; //TODO n Stuff
+  var icon = `icon: [${viewBox.width} , ${viewBox.height} , ${children}, "${uniCode}", "${svgPath}"]`;
 
-  var content = `{ ${iconsPrefix}, ${iconName}, ${icon}}`;
+  var content = `{ ${iconsPrefix}, ${iconName}, ${icon}};`;
   svgsAsVariablesArr[i] = `${variableName}${content}`;
   
 }
@@ -108,22 +107,20 @@ function createIcons$1(result){
 }
 
 
-
-
-var icons$ = `var icons$ = {${icons$1arr.toString()}};`;
+var icons$1 = `var icons$1 = {${icons$1arr.join(',\n')} }; \n`;
 var svgsAsVariablesArr = `${svgsAsVariablesArr.join('\n')};`;
 
 console.log(svgsAsVariablesArr);
 
 //replace/insert stuff in index.js file
 var indexfile = sander.readFileSync("testindex.js").toString().split("\n");
-    //indexfile.splice(100, 0, icons$);
-    indexfile.splice(100, 0, svgsAsVariablesArr);
+    
+    indexfile.splice(100, 0, `${svgsAsVariablesArr} \n ${icons$1}`);
     var indexfileContent = indexfile.join("\n");
     //console.log(indexfileContent);
     sander.writeFileSync('indexAfter.js', indexfileContent);
 
-
+    sander.copyFile('indexAfter.js').to('../node_modules/@fortawesome/fontawesome-meinestadt/index.js')
 
 //experiments/debugging/testing:
 //sander.writeFileSync( 'icons', 'icons$.js', icons$);
