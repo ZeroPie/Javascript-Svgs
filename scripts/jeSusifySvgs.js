@@ -2,11 +2,10 @@ var fs = require('fs');
 var sander = require( 'sander' );
 var util  = require('util');
 var path = require ('path');
-var svgson = require('svgson');
 var readDir = require('readdir');
 var extract = require('extract-svg-path');
 var extractViewbox = require('extract-svg-viewbox');
-var dirpath = './../svgs/test/';
+var dirpath = './../svgs/jobs_icons/';
 var svgFilepaths = readDir.readSync(dirpath , ['**.svg'], readDir.ABSOLUTE_PATHS);
 var normalize = require('normalize-svg-coords');
 console.log(svgFilepaths);
@@ -16,53 +15,31 @@ var svgsAsVariablesArr = [];
 var icons$1arr = [];
 var iconsPrefix = "prefix: 'fas'";
 
-for(var i = 0; i < svgFilepaths.length; i++){ 
-    readSVGContentIntoArray(svgFilepaths); 
-    svgson(allSvgs[i], getsvgsonConfig(), (svgAsJson) => { 
-      chewJson(svgFilepaths, svgAsJson);
-    });
+var listofSvgs = []; 
+for (svgFilepath of svgFilepaths) {
+  listofSvgs[i] = sander.readFileSync(svgFilepath).toString('utf8'); //reads Buffer ergo to String
 }
 
-function getsvgsonConfig() {
-  var svgsonConfig = {
-    svgo: true,
-    title: 'myFile',
-    key: 'all',
-    customAttrs: {
-      foo: true,
-    },
-  };
-  return svgsonConfig;
+console.log(listofSvgs)
+
+for(var i = 0; i < svgFilepaths.length; i++){  // Todo: svgfilepath in svgFIlepaths
+  allSvgs[i] = sander.readFileSync(`${svgFilepaths[i]}`).toString('utf8'); //reads Buffer ergo to String
+  createArrayOfVariableNames(svgFilepaths, allSvgs[i]);
+  createIcons$1(svgFilepaths, allSvgs[i]);
 }
 
-function chewJson(svgFilepaths, svgAsJson) {
-  createArrayOfVariableNames(svgFilepaths, svgAsJson);
-  createIcons$1(svgFilepaths, svgAsJson);
-}
-
-function readSVGContentIntoArray(svgFilepaths){
-  allSvgs[i] = sander.readFileSync(`${svgFilepaths[i]}`).toString('utf8');     //reads Buffer ergo to String
-  //TODO: with these maybe there is no  need to parse as json at all!!!!: -->>
-  var viewBox = extractViewbox(allSvgs[i]);
-
-}
-
-function getviewBox(svgAsJson){
-  var minx,miny,width,height;
-  return svgAsJson.attrs.viewBox;
-}
-
-function createArrayOfVariableNames(svgFilepaths, svgAsJson){
+function createArrayOfVariableNames(svgFilepaths, svg){
   var svgPath = extract(svgFilepaths[i]);
-  var fileName = path.basename(svgFilepaths[i], path.extname(svgFilepaths[i])).replace(/-/g, "_");
-  var variable = `var ${fileName} =`; 
-  var iconName = `iconName: '${fileName}'`;
-  var originalViewBox = svgAsJson.attrs.viewBox.replace(/\./g, "");
+      fileName = path.basename(svgFilepaths[i], path.extname(svgFilepaths[i])).replace(/-/g, "_");
+      variable = `var ${fileName} =`; 
+      iconName = `iconName: '${fileName}'`;
+      originalViewBox = extractViewbox(svg);
+  //console.log(originalViewBox);  
   var viewBox = {
     minx: 0,
     miny: 0,
-    width: 100,
-    height: 100,
+    width: 44,
+    height: 44,
   };
 
   var normalizedPath = normalize({
@@ -81,7 +58,7 @@ function createArrayOfVariableNames(svgFilepaths, svgAsJson){
 }
 
 
-function createIcons$1(svgAsJson){
+function createIcons$1(svgFilepaths){
   var icon = path.basename(svgFilepaths[i], path.extname(svgFilepaths[i])).replace(/-/g, "_"); 
   icons$1arr[i] = `${icon}: ${icon}`;
 }
