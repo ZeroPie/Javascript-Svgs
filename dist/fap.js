@@ -591,7 +591,7 @@
 
 	  var content = {
 	    children: [],
-	    attributes: _extends({}, extra.attributes, (_babelHelpers$extends = {}, defineProperty(_babelHelpers$extends, DATA_FA_PROCESSED, ''), defineProperty(_babelHelpers$extends, 'data-prefix', prefix), defineProperty(_babelHelpers$extends, 'data-icon', iconName), defineProperty(_babelHelpers$extends, 'class', attrClass), defineProperty(_babelHelpers$extends, 'role', 'img'), defineProperty(_babelHelpers$extends, 'xmlns', 'http://www.w3.org/2000/svg'), defineProperty(_babelHelpers$extends, 'viewBox', '0 0 ' + width + ' ' + height), _babelHelpers$extends))
+	    attributes: _extends({}, extra.attributes, (_babelHelpers$extends = {}, defineProperty(_babelHelpers$extends, DATA_FA_PROCESSED, ''), defineProperty(_babelHelpers$extends, 'data-prefix', prefix), defineProperty(_babelHelpers$extends, 'data-icon', iconName), defineProperty(_babelHelpers$extends, 'class', attrClass), defineProperty(_babelHelpers$extends, 'role', 'img'), defineProperty(_babelHelpers$extends, 'xmlns', 'http://www.w3.org/2000/svg'), defineProperty(_babelHelpers$extends, 'viewBox', '0 0 ' + width + ' ' + height), _babelHelpers$extends), defineProperty(_babelHelpers$extends, 'fill-rule', 'evenodd'), defineProperty(_babelHelpers$extends, 'clip-rule', 'evenodd'))
 	  };
 
 	  if (title) content.children.push({ tag: 'title', attributes: { id: content.attributes['aria-labelledby'] || 'title-' + nextUniqueId() }, children: [title] });
