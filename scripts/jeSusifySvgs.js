@@ -3,99 +3,95 @@ var sander = require( 'sander' );
 var util  = require('util');
 var path = require ('path');
 var readDir = require('readdir');
-var extractSvgPath = require('extract-svg-path');
+var extract = require('extract-svg-path');
 var extractViewbox = require('extract-svg-viewbox');
 var dirpath = './../svgs/jobs_icons/';
-var svgFilepaths = readDir.readSync(dirpath , ['**.svg'], readDir.ABSOLUTE_PATHS);
-var normalize = require('normalize-svg-coords');
-console.log(svgFilepaths);
 
-var allSvgs = [];
+var normalize = require('normalize-svg-coords');
+
+
+
 var svgsAsVariablesArr = [];
 var icons$1arr = [];
+var iconsPrefix = "prefix: 'fas'";
 
-//svg object class here --> instantiate inside of getAllSvgs
+var listOfSvgFilePaths = getListOfSvgFilePaths(dirpath);
+var listOfRawSvgs = getListOfRawSvgs(listOfSvgFilePaths);
 
-var listOfSvgs = [];
-listOfSvgs = getAllSvgs(svgFilepaths);
 
-function Svg(filename, content) {
-    this.filename = 'noname';
-    this.content = 'content';
+
+function getListOfSvgFilePaths(dirpath) {
+    var listOfSvgFilePaths = [];
+    listOfSvgFilePaths = readDir.readSync(dirpath , ['**.svg'], readDir.ABSOLUTE_PATHS);
+    console.log(listOfSvgFilePaths);
+    return listOfSvgFilePaths;
+}
+
+function getListOfRawSvgs() {
+    var listOfRawSvgs = [];
+    for (var i = 0; i < listOfSvgFilePaths.length; i++) {
+            var rawSvg = createRawSvg('');
+            rawSvg.setFilePath(listOfSvgFilePaths[i]);
+            console.log(rawSvg.filePath);
+            listOfRawSvgs.push(rawSvg);
+    }
+    console.log(listOfRawSvgs);
+    return listOfRawSvgs;
+}
+
+
+function createRawSvg (_ref) { 
+    var filepath = _ref.filePath || 'empty',
+        content = _ref.content || 'empty',
+    rawContent = _ref.stuff || 'empty',
+    content = '',
+    path = '',
+    prefix = '',
+    iconName = '',
+    icon = '',
+    children = [];
+    viewBox = {
+        minx: 0,
+        miny: 0,
+        width: 44,
+        height: 44,
+    };
+    return {
+        filepath: filepath,
+        content: content,
+        setFilePath: function setFilePath(filePath) {
+            this.filePath = filePath;
+            return this;
+        },
+        setContent: function setFilePath(rawContent) {
+            this.content = rawContent;
+            return this;
+        }
+    };
 };
 
-//https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa
-const createSvg = ({ fileName, content}) => ({
-    filename,
-    content
-});
-
-const inSvg = createSvg({
-    fileName: '',
-    content: ''
-});
-
-for(var svg of listOfSvgs) {
-    console.log(svg);
-    createJsSvg(svg);
-}
-
-function getAllSvgs(svgFilepaths) {
-    var listOfSvgs = []; 
-    var rSvg = createSvg({
-      fileName: '',
-      content: ''
-    });
-    for (var svgFilepath of svgFilepaths) {
-      rSvg.fileName = path.basename(svgFilepath, path.extname(svgFilepath)).replace(/-/g, "_");
-      rSvg.content = sander.readFileSync(svgFilepath).toString('utf8') 
-      listOfSvgs.push(rSvg); 
-    }
-    return listOfSvgs;
-}
-
-function createJsSvg(svg) {
-
-    var jsSvg = {
-        fileName: svg.fileName,
-        variableName: `var ${this.fileName} =`, 
-        iconName: `iconName: '${this.fileName}'`,
-        viewBox: {
-            minx: 0,
-            miny: 0,
-            width: 44,
-            height: 44,
-        },
-        children: [],
-        unicode: 'msfa',
-        path: extractSvgPath(svg),
-        icon: `icon: [${this.viewBox} , ${this.viewBox} , ${this.children}, "${this.uniCodef}", "${this.path}"]`,
-    };
-
-    return jsSvg;
-  }
-
-
-for(var i = 0; i < svgFilepaths.length; i++){ 
-    allSvgs[i] = sander.readFileSync(`${svgFilepaths[i]}`).toString('utf8'); 
-    createArrayOfVariableNames(svgFilepaths, allSvgs[i]);
-    createIcons$1(svgFilepaths, allSvgs[i]);
+var listOfSvgs = []; 
+for(var i = 0; i < listOfSvgFilePaths.length; i++) {  
+    listOfSvgs[i] = sander.readFileSync(`${listOfSvgFilePaths[i]}`).toString('utf8'); //reads Buffer ergo to String
+    createArrayOfVariableNames(listOfSvgFilePaths, listOfSvgs[i]);
+    createIcons$1(listOfSvgFilePaths, listOfSvgs[i]);
 }
 
 
-
-
-
+var allSvgs = [];
+for(var i = 0; i < listOfSvgFilePaths.length; i++){ 
+  allSvgs[i] = sander.readFileSync(`${listOfSvgFilePaths[i]}`).toString('utf8'); //reads Buffer ergo to String
+  createArrayOfVariableNames(listOfSvgFilePaths, allSvgs[i]);
+  createIcons$1(listOfSvgFilePaths, allSvgs[i]);
+}
 
 function createArrayOfVariableNames(svgFilepaths, svg){
-  var svgPath = extractSvgPath(svgFilepaths[i]);
+  var svgPath = extract(svgFilepaths[i]);
       fileName = path.basename(svgFilepaths[i], path.extname(svgFilepaths[i])).replace(/-/g, "_");
       variable = `var ${fileName} =`; 
       iconName = `iconName: '${fileName}'`;
       originalViewBox = extractViewbox(svg);
-      iconsPrefix = "prefix: 'fas'";
-
-      //console.log(originalViewBox);  
+  //console.log(originalViewBox);  
   var viewBox = {
     minx: 0,
     miny: 0,
@@ -110,6 +106,7 @@ function createArrayOfVariableNames(svgFilepaths, svg){
   });
 
   var children = '[]';
+  var uniCode = "f2b9";
   var uniCodef = `${fileName.slice(1, -1)}`; //TODO n Stuff
   var icon = `icon: [${viewBox.width} , ${viewBox.height} , ${children}, "${uniCodef}", "${svgPath}"]`;
   var content = ` { ${iconsPrefix}, ${iconName}, ${icon}};`;
@@ -123,6 +120,7 @@ function createIcons$1(svgFilepaths){
   icons$1arr[i] = `${icon}: ${icon}`;
 }
 
+
 var icons$1 = `var icons$1 = {\n${icons$1arr.join(',\n')}}; \n`;
 var svgsAsVariablesArr = `${svgsAsVariablesArr.join('\n')} \n`;
 
@@ -135,5 +133,8 @@ function writeIndexFile(){
   sander.writeFileSync(indexFileName, indexfileContent);
   sander.copyFile(indexFileName).to('../node_modules/@fortawesome/fontawesome-meinestadt/index.js');
 }
+
+
+
 
 writeIndexFile();
