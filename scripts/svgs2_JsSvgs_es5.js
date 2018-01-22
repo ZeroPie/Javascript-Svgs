@@ -19,9 +19,9 @@ writeToIndexFile();
 function writeToIndexFile () {
     var indexFileTemplate = "indexTemplate.js";
     var indexFileName = "indexAfter.js";
-    var indexfile = sander.readFileSync(indexFileTemplate).toString().split("\n");
-    indexfile.splice(100, 0, `${listOfJavascriptSvgs}\n${icons$1}`);
-    var indexfileContent = indexfile.join("\n");
+    var indexFile = sander.readFileSync(indexFileTemplate).toString().split("\n");
+    indexFile.splice(100, 0, `${listOfJavascriptSvgs}\n${icons$1}`);
+    var indexfileContent = indexFile.join("\n");
     sander.writeFileSync(indexFileName, indexfileContent);
     sander.copyFile(indexFileName).to('../node_modules/@fortawesome/fontawesome-meinestadt/index.js');
 }
