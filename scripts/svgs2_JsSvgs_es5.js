@@ -29,7 +29,7 @@ function writeToIndexFile () {
 function getListOfJavaScriptSvgs(listOfSvgs) {
     var listOfJavascriptSvgs = [];
     for (var i = 0; i < listOfSvgs.length; i++) {
-        var javaScriptSvg = svgToJavascriptSvg(listOfSvgs[i]);
+        var javaScriptSvg = transformSvgToJavascriptSvg(listOfSvgs[i]);
         listOfJavascriptSvgs.push(javaScriptSvg);
     }
     listOfJavascriptSvgs = `${listOfJavascriptSvgs.join('\n')} \n`;
@@ -37,7 +37,7 @@ function getListOfJavaScriptSvgs(listOfSvgs) {
     return listOfJavascriptSvgs;
 }
 
-function svgToJavascriptSvg(svg) {
+function transformSvgToJavascriptSvg(svg) {
     var javascriptSvg;
     var variable = `var ${svg.name} =`; 
     var prefix = `prefix: '${svg.prefix}'` || 'ms';
