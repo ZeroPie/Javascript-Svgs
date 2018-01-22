@@ -79,7 +79,7 @@ for(var i = 0; i < listOfSvgFilePaths.length; i++) {
 
 
 var allSvgs = [];
-for(var i = 0; i < listOfSvgFilePaths.length; i++){ 
+for(var i = 0; i < listOfSvgFilePaths.length; i++) { 
   allSvgs[i] = sander.readFileSync(`${listOfSvgFilePaths[i]}`).toString('utf8'); //reads Buffer ergo to String
   createArrayOfVariableNames(listOfSvgFilePaths, allSvgs[i]);
   createIcons$1(listOfSvgFilePaths, allSvgs[i]);
