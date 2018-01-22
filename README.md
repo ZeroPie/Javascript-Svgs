@@ -4,8 +4,8 @@
 
 Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor.
 
-  - Type some Markdown on the left
-  - See HTML in the right
+  - index.js 
+  - 
   - Magic
 
 # New Features!
@@ -54,10 +54,12 @@ Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
 
 Install the dependencies and devDependencies and start the server.
 
-```sh
-$ cd dillinger
-$ npm install -d
-$ node app
+Line 535:
+```
+  var content = {
+    children: [],
+    attributes: _extends({}, extra.attributes, (_babelHelpers$extends = {}, defineProperty(_babelHelpers$extends, DATA_FA_PROCESSED, ''), defineProperty(_babelHelpers$extends, 'data-prefix', prefix), defineProperty(_babelHelpers$extends, 'data-icon', iconName), defineProperty(_babelHelpers$extends, 'class', attrClass), defineProperty(_babelHelpers$extends, 'role', 'img'), defineProperty(_babelHelpers$extends, 'xmlns', 'http://www.w3.org/2000/svg'), defineProperty(_babelHelpers$extends, 'viewBox', '0 0 ' + width + ' ' + height), _babelHelpers$extends), defineProperty(_babelHelpers$extends, 'fill-rule', 'evenodd'), defineProperty(_babelHelpers$extends, 'clip-rule', 'evenodd'))
+  };
 ```
 
 For production environments...
