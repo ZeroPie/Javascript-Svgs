@@ -2,7 +2,7 @@ const sander = require( 'sander' );
 var readDir = require('readdir');
 
 const svgParser = (rawSvg) => {
-    return Object.assign(canParseSvg(rawSvg));
+    return canParseSvg(rawSvg);
 }
 
 const svgNormalizer = (parsedSvg) => {
@@ -31,7 +31,6 @@ const directoryUtility = () => {
         );
 }
 
-
 const canReadSvgsInDirectory = () => ({
     readSvgs: (directoryPath) => {
         let svgFilepaths = [];
@@ -50,7 +49,6 @@ const canCreateDirectory = () => ({
         }
     })
 })
-
 
 const canCreateIndexFile = () => ({});
 
@@ -89,9 +87,16 @@ const canNormalizeSvg = () => ({
     }
 })
 
-
-
-
+const createSvg = ({ filePath, content }) => ({
+    filePath,
+    content,
+    setFilePath (filePath) {
+      this.filePath = filePath;
+      return this;
+    }
+  });
+  
+  
 
 
 let coolSvg = {
@@ -110,4 +115,3 @@ let dirCreated = directoryUtility().makedir().dirName('icons');;
 
 console.log(parsedSvg);
 console.log(normalisedSvg);
-console.log(listOfSvgFilepaths);
