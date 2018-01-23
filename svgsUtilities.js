@@ -2,7 +2,7 @@ const sander = require( 'sander' );
 var readDir = require('readdir');
 
 const svgParser = (rawSvg) => {
-    return canParseSvg(rawSvg);
+    return canParseSvg(rawSvg), canReadSvgsInDirectory());
 }
 
 const svgNormalizer = (parsedSvg) => {

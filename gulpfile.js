@@ -5,7 +5,7 @@ gulp.task('default', function() {
     return gulp.src('src/index.js')
     .pipe(webpack({
         output:{
-            filename: 'fap.js',
+            filename: 'jsSvgs.js',
         }
     }))
     .pipe(gulp.dest('dist/'));

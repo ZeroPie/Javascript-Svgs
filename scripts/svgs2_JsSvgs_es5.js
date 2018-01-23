@@ -80,7 +80,6 @@ function getListOfSvgs() {
 function createSvg() {
     var filePath = '',
         name = '',
-        htmlContent = '',
         svgPath = '',
         prefix = 'fas',
         icon = '',
@@ -95,7 +94,6 @@ function createSvg() {
     return {
         filePath: filePath,
         name: name,
-        htmlContent: htmlContent,
         svgPath: svgPath,
         abbreviation: abbreviation,
         prefix: prefix,
@@ -105,7 +103,7 @@ function createSvg() {
             this.filePath = filePath;
             return this;
         },
-        setPath: function setIcon(svgPath) {
+        setPath: function setsvgPath(svgPath) {
             this.svgPath = svgPath;
             return this;
         },
