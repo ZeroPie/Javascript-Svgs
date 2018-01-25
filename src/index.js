@@ -1,3 +1,3 @@
-const fontawesome = require ('@fortawesome/fontawesome');
+const fontawesome = require ('../icons/@fortawesome/fontawesome');
 
-const meinestadt = require ('@fortawesome/fontawesome-meinestadt');
+const meinestadt = require ('../icons/@fortawesome/fontawesome-meinestadt');

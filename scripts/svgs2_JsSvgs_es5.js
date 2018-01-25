@@ -5,7 +5,6 @@ var readDir = require('readdir');
 var extractSvgPath = require('extract-svg-path');
 var extractViewbox = require('extract-svg-viewbox');
 var normalize = require('normalize-svg-coords');
-
 var dirpath = './../svgs/jobs_icons/';
 
 
@@ -16,14 +15,11 @@ var icons$1 = getObjectOfAllIcons$1(listOfSvgs);
 
 writeToIndexFile();
 
-function writeToIndexFile () {
-    var indexFileTemplate = "indexTemplate.js";
-    var indexFileName = "indexAfter.js";
-    var indexFile = sander.readFileSync(indexFileTemplate).toString().split("\n");
-    indexFile.splice(100, 0, `${listOfJavascriptSvgs}\n${icons$1}`);
-    var indexfileContent = indexFile.join("\n");
-    sander.writeFileSync(indexFileName, indexfileContent);
-    sander.copyFile(indexFileName).to('../node_modules/@fortawesome/fontawesome-meinestadt/index.js');
+
+function getListOfSvgFilePaths(dirpath) {
+    var listOfSvgFilePaths = [];
+    listOfSvgFilePaths = readDir.readSync(dirpath, ['**.svg'], readDir.ABSOLUTE_PATHS);
+    return listOfSvgFilePaths;
 }
 
 function getListOfJavaScriptSvgs(listOfSvgs) {
@@ -37,18 +33,6 @@ function getListOfJavaScriptSvgs(listOfSvgs) {
     return listOfJavascriptSvgs;
 }
 
-function transformSvgToJavascriptSvg(svg) {
-    var javascriptSvg;
-    var variable = `var ${svg.name} =`; 
-    var prefix = `prefix: '${svg.prefix}'` || 'ms';
-    var name = `iconName: '${svg.name}'` || 'noName';
-    var children = `${svg.children}` || '[]';
-    var icon = `icon: [${svg.viewBox.width} , ${svg.viewBox.height} , ${children}, "${svg.abbreviation}", "${svg.svgPath}"]`;
-    var content = ` { ${prefix}, ${name}, ${icon}};`;
-    var javaScriptSvg = `${variable}${content}`;
-    return javaScriptSvg;
-}
-
 function getObjectOfAllIcons$1(listOfSvgs) {
     var listOfIcons$1 = [];
     for (var i = 0; i < listOfSvgs.length; i++ ) {
@@ -57,12 +41,6 @@ function getObjectOfAllIcons$1(listOfSvgs) {
     }
     var icons$1 = `var icons$1 = {\n${listOfIcons$1.join(',\n')}}; \n`;
     return icons$1;
-}
-
-function getListOfSvgFilePaths(dirpath) {
-    var listOfSvgFilePaths = [];
-    listOfSvgFilePaths = readDir.readSync(dirpath, ['**.svg'], readDir.ABSOLUTE_PATHS);
-    return listOfSvgFilePaths;
 }
 
 function getListOfSvgs() {
@@ -115,6 +93,27 @@ function createSvg() {
     };
 }
 
+function transformSvgToJavascriptSvg(svg) {
+    var javascriptSvg;
+    var variable = `var ${svg.name} =`; 
+    var prefix = `prefix: '${svg.prefix}'` || 'ms';
+    var name = `iconName: '${svg.name}'` || 'noName';
+    var children = `${svg.children}` || '[]';
+    var icon = `icon: [${svg.viewBox.width} , ${svg.viewBox.height} , ${children}, "${svg.abbreviation}", "${svg.svgPath}"]`;
+    var content = ` { ${prefix}, ${name}, ${icon}};`;
+    var javaScriptSvg = `${variable}${content}`;
+    return javaScriptSvg;
+}
+
+function writeToIndexFile () {
+    var indexFileTemplate = "indexTemplate.js";
+    var indexFileName = "indexAfter.js";
+    var indexFile = sander.readFileSync(indexFileTemplate).toString().split("\n");
+    indexFile.splice(100, 0, `${listOfJavascriptSvgs}\n${icons$1}`);
+    var indexfileContent = indexFile.join("\n");
+    sander.writeFileSync(indexFileName, indexfileContent);
+    sander.copyFile(indexFileName).to('../icons/@fortawesome/fontawesome-meinestadt/index.js');
+}
 
 
 

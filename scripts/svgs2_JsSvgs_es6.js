@@ -1,66 +1,71 @@
+/*jshint esversion: 6 */
 const sander = require( 'sander' );
-var readDir = require('readdir');
+const readDir = require('readdir');
+const extractViewbox = require('extract-svg-viewbox');
 
 const svgParser = (rawSvg) => {
-    return canParseSvg(rawSvg), canReadSvgsInDirectory());
-}
-
-const svgNormalizer = (parsedSvg) => {
-    return Object.assign(canNormalizeSvg(parsedSvg));
-}
-
-const javascriptSvgCreator = (normalisedSvg) => {
-    return Object.assign(canCreateJavascriptSvg(parsedSvg));
-}
-
-const javascriptSvgListCreator = (ArrayofParsedSvgs) => {
-    return Object.assign(canCreateListOfJavascriptSvgs(parsedSvg));
-}
-
-const svgExporter = (ArrayofParsedSvgs) => {
-    return Object.assign(canExportJavaScriptSvgsToIndexJs(parsedSvg));
-}
+    return Object.assign(
+        canParseSvg(rawSvg), 
+        canReadDirectory(), 
+        canNormalizeSvg(rawSvg), 
+        canCreateJavascriptSvg(rawSvg));
+};
 
 const directoryUtility = () => {
-    let state = {
-        
-    }
     return Object.assign({},
-        canReadSvgsInDirectory(rawSvg),
-        canCreateDirectory(),
+        canReadDirectory(),
+        canCreateDirectory()
         );
-}
+};
 
-const canReadSvgsInDirectory = () => ({
-    readSvgs: (directoryPath) => {
-        let svgFilepaths = [];
-        svgFilepaths = readDir.readSync(directoryPath, ['**.svg'], readDir.ABSOLUTE_PATHS);
-        return svgFilepaths;
-    }
-})
+const canReadDirectory = () => ({
+    readDirectory: (directoryPath) => ({
+        fileType: (fileType) => {
+            let svgFilepaths = [];
+            svgFilepaths = readDir.readSync(directoryPath, [`**.${fileType}`], readDir.ABSOLUTE_PATHS)
+            return svgFilepaths;
+        },
+        //https://medium.com/javascript-scene/javascript-factory-functions-with-es6-4d224591a8b1
+        /*
+        Be careful when you return object literals. By default, JavaScript assumes you want to create a function body when you use braces, e.g., { broken: true }. If you want to use an implicit return for an object literal, you’ll need to disambiguate by wrapping the object literal in parentheses:
+            const noop = () => { foo: 'bar' };
+            console.log(noop()); // undefined
+            const createFoo = () => ({ foo: 'bar' });
+            console.log(createFoo()); // { foo: "bar" }
+        */
+        
+        fileTypeOb: (fileType) => ({
+            svgFilepaths: readDir.readSync(directoryPath, [`**.${fileType}`], readDir.ABSOLUTE_PATHS)
+        })
+        
+
+    })
+});
 
 const canCreateDirectory = () => ({
     makedir: () => ({
         dirName: (name) => {
             sander.mkdirSync(name);
+            return true;
         },
         dirPath: (path) => {
             sander.mkdirSync(path);
         }
     })
-})
+});
 
 const canCreateIndexFile = () => ({});
 
 const canParseSvg = () => ({
-    parseRawSvg: (svg) => { //named functions vs arrow?=> 
-        rawSvg = {
-            name: svg.name,
-            filepath: svg.filepath,
-        }
-        return rawSvg;
+    parseRawSvg: (RawSvg) => { //named functions vs arrow?=> 
+        let parsedSvg = {
+            name: RawSvg.name,
+            filepath: RawSvg.filepath,
+            //viewBox: extractViewbox(RawSvg)
+        };
+        return parsedSvg;
     }
-})
+});
 
 const canCreateJavascriptSvg = () => ({
 
@@ -77,7 +82,7 @@ const canCreateJavascriptSvg = () => ({
         normalizedSvg.viewbox = '44';
         return normalizedSvg;
     }
-})
+});
 
 const canNormalizeSvg = () => ({
     normalizeSvg: (parsedSvg) => {
@@ -85,7 +90,7 @@ const canNormalizeSvg = () => ({
         normalizedSvg.viewbox = '44';
         return normalizedSvg;
     }
-})
+});
 
 const createSvg = ({ filePath, content }) => ({
     filePath,
@@ -94,11 +99,9 @@ const createSvg = ({ filePath, content }) => ({
       this.filePath = filePath;
       return this;
     }
-  });
+});
   
   
-
-
 let coolSvg = {
     name: 'midfinger',
     filepath: '/dir/some.svg',
@@ -107,11 +110,9 @@ let coolSvg = {
 
 
 
-
 let parsedSvg = svgParser().parseRawSvg(coolSvg);
-let normalisedSvg = svgNormalizer().normalizeSvg(coolSvg);
-let listOfSvgFilepaths  = directoryUtility().readSvgs('./svgs/test/');
+let normalisedSvg = svgParser().normalizeSvg(coolSvg);
+let listOfSvgFilepaths = directoryUtility().readDirectory('./../svgs/jobs_icons/').fileType('svg');
 let dirCreated = directoryUtility().makedir().dirName('icons');;
 
-console.log(parsedSvg);
-console.log(normalisedSvg);
+console.log(listOfSvgFilepaths);
