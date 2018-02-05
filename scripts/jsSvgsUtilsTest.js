@@ -1,4 +1,4 @@
-var svgUtils = require('./svgUtils');
+var svgUtils = require('./jsSvgsUtils');
 var dirpath = './../svgs/jobs_icons/';
 
 
