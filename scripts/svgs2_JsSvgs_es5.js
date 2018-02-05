@@ -43,7 +43,7 @@ function getObjectOfAllIcons$1(listOfSvgs) {
     return icons$1;
 }
 
-function getListOfSvgs() {
+function getListOfSvgs(listOfSvgFilePaths) {
     var listOfSvgs = [];
     for (var i = 0; i < listOfSvgFilePaths.length; i++) {
         var svg = createSvg();

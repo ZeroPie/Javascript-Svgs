@@ -1,13 +1,14 @@
 /*jshint esversion: 6 */
+const path = require('path');
 const sander = require( 'sander' );
 const readDir = require('readdir');
 const extractViewbox = require('extract-svg-viewbox');
+const extractSvgPath = require('extract-svg-path');
 
+//Factories//
 const svgParser = (rawSvg) => {
     return Object.assign(
-        canParseSvg(rawSvg), 
         canReadDirectory(), 
-        canNormalizeSvg(rawSvg), 
         canCreateJavascriptSvg(rawSvg));
 };
 
@@ -18,14 +19,20 @@ const directoryUtility = () => {
         );
 };
 
+
+//Methods/Capabillities//
 const canReadDirectory = () => ({
     readDirectory: (directoryPath) => ({
         fileType: (fileType) => {
             let svgFilepaths = [];
-            svgFilepaths = readDir.readSync(directoryPath, [`**.${fileType}`], readDir.ABSOLUTE_PATHS)
+            svgFilepaths = readDir.readSync(directoryPath, [`**.${fileType}`], readDir.ABSOLUTE_PATHS);
             return svgFilepaths;
         },
-        //https://medium.com/javascript-scene/javascript-factory-functions-with-es6-4d224591a8b1
+        fileTypeOb: (fileType) => ({
+            svgFilepaths: readDir.readSync(directoryPath, [`**.${fileType}`], readDir.ABSOLUTE_PATHS)
+        })
+        
+                //https://medium.com/javascript-scene/javascript-factory-functions-with-es6-4d224591a8b1
         /*
         Be careful when you return object literals. By default, JavaScript assumes you want to create a function body when you use braces, e.g., { broken: true }. If you want to use an implicit return for an object literal, you’ll need to disambiguate by wrapping the object literal in parentheses:
             const noop = () => { foo: 'bar' };
@@ -33,11 +40,6 @@ const canReadDirectory = () => ({
             const createFoo = () => ({ foo: 'bar' });
             console.log(createFoo()); // { foo: "bar" }
         */
-        
-        fileTypeOb: (fileType) => ({
-            svgFilepaths: readDir.readSync(directoryPath, [`**.${fileType}`], readDir.ABSOLUTE_PATHS)
-        })
-        
 
     })
 });
@@ -54,43 +56,57 @@ const canCreateDirectory = () => ({
     })
 });
 
-const canCreateIndexFile = () => ({});
-
-const canParseSvg = () => ({
-    parseRawSvg: (RawSvg) => { //named functions vs arrow?=> 
-        let parsedSvg = {
-            name: RawSvg.name,
-            filepath: RawSvg.filepath,
-            //viewBox: extractViewbox(RawSvg)
-        };
-        return parsedSvg;
-    }
-});
 
 const canCreateJavascriptSvg = () => ({
 
-    parseSvgtoJs: (svg) => {
-        rsvg = {      
-            name: svg.name,
-            filepath: svg.filepath,
-        }
-        return rsvg;
+    parseRawSvg: (rawSvg) => { //named functions vs arrow?=> 
+        let parsedSvg = {
+            filePath: svg,
+            svgPath: extractSvgPath(rawSvg),
+            viewBox: extractViewbox(rawSvg),
+            name: path.basename(rawSvg, path.extname(rawSvg)).replace(/-/g, "_"),
+        };
+        return parsedSvg;
     },
 
-    normalizeSvg: (parsedSvg) => {
-        let normalizedSvg = parsedSvg;
-        normalizedSvg.viewbox = '44';
-        return normalizedSvg;
-    }
+
+   parseListOfSvgs: (listOfSvgFilepaths) => {
+           let listOfSvgs = [];
+           for (let [index,svg] of listOfSvgFilepaths.entries()) {
+               let parsedSvg = {
+                   filePath: svg,
+                   svgPath: extractSvgPath(svg),
+                   viewBox: extractViewbox(svg),
+                   name: path.basename(svg, path.extname(svg)).replace(/-/g, "_"),
+                };
+                listOfSvgs.push(parsedSvg);
+           }
+
+       svgObjects: () => {
+        return listOfSvgs;
+       };
+
+       javaScriptSvgs: () => {
+        let listOfJavascriptSvgs = [];
+        for (let svg of listOfSvgFilepaths) {
+            let javascriptSvg;
+            let leName = path.basename(svg, path.extname(svg)).replace(/-/g, "_");
+            let variable = `var ${leName} =`; 
+            let prefix = `prefix: '${'fa'}'` || 'ms';
+            let name = `iconName: '${leName}'` || 'noName';
+            let children = `${svg.children}` || '[]';
+            let icon = `icon: [${svg.viewBox.width} , ${svg.viewBox.height} , ${children}, "${svg.abbreviation}", "${svg.svgPath}"]`;
+            let content = ` { ${prefix}, ${name}, ${icon}};`;
+            let javaScriptSvg = `${variable}${content}`;
+            listOfJavascriptSvgs.push(javaScriptSvg);            
+            }
+       }
+
+   },
+    
+
 });
 
-const canNormalizeSvg = () => ({
-    normalizeSvg: (parsedSvg) => {
-        let normalizedSvg = parsedSvg;
-        normalizedSvg.viewbox = '44';
-        return normalizedSvg;
-    }
-});
 
 const createSvg = ({ filePath, content }) => ({
     filePath,
@@ -100,19 +116,21 @@ const createSvg = ({ filePath, content }) => ({
       return this;
     }
 });
-  
-  
+
 let coolSvg = {
     name: 'midfinger',
     filepath: '/dir/some.svg',
     content: 'contentino',
-}
+};
 
 
 
-let parsedSvg = svgParser().parseRawSvg(coolSvg);
-let normalisedSvg = svgParser().normalizeSvg(coolSvg);
 let listOfSvgFilepaths = directoryUtility().readDirectory('./../svgs/jobs_icons/').fileType('svg');
-let dirCreated = directoryUtility().makedir().dirName('icons');;
+let listOfSvgs = svgParser().parseListOfSvgs(listOfSvgFilepaths).svgObjects();
+let dirCreated = directoryUtility().makedir().dirName('icons');
 
-console.log(listOfSvgFilepaths);
+console.log(listOfSvgs);
+
+
+//svgParser --> implement parseListOfSvgs instead of einzeln
+//normalize as external method?
