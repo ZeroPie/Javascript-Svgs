@@ -3,7 +3,8 @@ The @fortawesome/fontawesome package contains all the functionality for generati
 The icons are located in individual packages inside fontawesome-meinestadt (We need to fill this with life => our own icons) 
 For that we use jsSvgsGenerator
 
-jsSvgsGenerator generates jsSvgs using an empty Template, then packs the library inside fontawesome-meinestadt.
+jsSvgsGenerator generates jsSvgs using an empty Template, then packs the library inside fontawesome-meinestadt (index.js)
+
 A gulp webbpack task then executes index.js which generates the file (function + icons) that we want to concatenate in the app js.
 This files looks for i tags and replaces svgs with inlinesvgs.
 
