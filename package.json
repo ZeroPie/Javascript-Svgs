@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "transformSvgs": "cd scripts && node svgs2_JsSvgs_es5.js && gulp"
+    "transformSvgs": "node src/icons/utils/generateJsSvgs.js && gulp"
   },
   "keywords": [],
   "author": "",

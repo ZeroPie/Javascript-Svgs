@@ -45,7 +45,6 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	const fontawesome = __webpack_require__ (1);
-
 	const meinestadt = __webpack_require__ (3);
 
 
