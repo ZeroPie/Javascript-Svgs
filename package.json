@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "fap": "cd scripts && node svgs2_JsSvgs_es5.js && gulp"
+    "generatejsSvgs": "node src/icons/src/generateLibrary.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "extract-svg-viewbox": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-webpack": "^1.5.0",
+    "mustache": "^2.3.0",
     "normalize-svg-coords": "^1.0.7",
     "readdir": "0.0.13",
     "sander": "^0.6.0",
