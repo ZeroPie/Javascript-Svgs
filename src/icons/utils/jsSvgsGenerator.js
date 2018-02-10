@@ -148,6 +148,7 @@ module.exports = {
     },
 
     createIconsLibrary: function createIconsLibrary(dirpath) {
+        'use strict';
         var icons = this.createIconsObject(dirpath);
         var listOfJavascriptSvgs = this.createJavascriptSvgs(dirpath);
         this.writeToFontAwesomeIndexFile(listOfJavascriptSvgs,icons);
