@@ -134,17 +134,13 @@ module.exports = {
     },
 
     writeToFontAwesomeIndexFile: function writeToFontAwesomeIndexFile (listOfJavascriptSvgs, icons$1) {
-        //indexAfter.js write and copy unnecesary --> write directly to location
         'use strict';
-        var indexFileTemplate = "./src/icons/templates/libraryTemplate.js";
-        var indexFileName = "./src/icons/templates/msIconsLibrary.js";
+        var libraryTemplate = "./src/icons/templates/libraryTemplate.js";
         var libraryLocation = "./src/icons/@fortawesome/fontawesome-meinestadt/index.js";
-        var indexFile = sander.readFileSync(indexFileTemplate).toString().split("\n");
+        var indexFile = sander.readFileSync(libraryTemplate).toString().split("\n");
         indexFile.splice(100, 0, `${listOfJavascriptSvgs}\n${icons$1}`);
-        var indexfileContent = indexFile.join("\n");
-        sander.writeFileSync(indexFileName, indexfileContent);
-        sander.copyFile(indexFileName).to(libraryLocation);
-        console.log(`File created ${indexFileName} at ${libraryLocation}`);
+        indexFile = indexFile.join("\n");
+        sander.writeFileSync(libraryLocation, indexFile);
     },
 
     createIconsLibrary: function createIconsLibrary(dirpath) {
