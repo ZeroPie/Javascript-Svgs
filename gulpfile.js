@@ -4,7 +4,7 @@ var spawn = require('child_process').spawn;
 
 
 gulp.task('default', function() {
-    spawn('node', ['src/icons/generateLibrary.js'], { stdio: 'inherit' });
+    spawn('node', ['src/icons/src/generateLibrary.js'], { stdio: 'inherit' });
     return gulp.src('src/icons/index.js')
     .pipe(webpack({
         output:{
