@@ -6,7 +6,7 @@ var extractSvgPath = require('extract-svg-path');
 
 
 function jsSvgsGenerator({
-    dirpath: dirpath,
+    svgsFolder: svgsFolder,
     normalize: normalize,
     viewBox: viewBox,
     prefix: prefix,
@@ -14,7 +14,7 @@ function jsSvgsGenerator({
     libraryDestination: libraryDestination,
 }) {
 
-    this.dirpath = dirpath;
+    this.svgsFolder = svgsFolder;
     this.normalize = normalize;
     this.viewBox = viewBox;
     this.prefix = prefix;
@@ -54,9 +54,9 @@ function jsSvgsGenerator({
         };
     };
 
-    this.getListOfSvgFilePaths = function getListOfSvgFilePaths(dirpath) {
+    this.getListOfSvgFilePaths = function getListOfSvgFilePaths(svgsFolder) {
         var listOfSvgFilePaths = [];
-        listOfSvgFilePaths = readDir.readSync(dirpath, ['**.svg'], readDir.ABSOLUTE_PATHS);
+        listOfSvgFilePaths = readDir.readSync(svgsFolder, ['**.svg'], readDir.ABSOLUTE_PATHS);
         return listOfSvgFilePaths;
     };
 
@@ -104,15 +104,15 @@ function jsSvgsGenerator({
         return javaScriptSvg;
     };
 
-    this.createJavascriptSvgs = function createJavascriptSvgs(dirpath) {
-        var listOfSvgFilePaths = this.getListOfSvgFilePaths(dirpath);
+    this.createJavascriptSvgs = function createJavascriptSvgs(svgsFolder) {
+        var listOfSvgFilePaths = this.getListOfSvgFilePaths(svgsFolder);
         var listOfSvgs = this.getListOfSvgs(listOfSvgFilePaths);
         var listOfJavascriptSvgs = this.getListOfJavaScriptSvgs(listOfSvgs);
         return listOfJavascriptSvgs;
     };
 
-    this.createIconsObject = function createIconsObject(dirpath) {
-        var listOfSvgFilePaths = this.getListOfSvgFilePaths(dirpath);
+    this.createIconsObject = function createIconsObject(svgsFolder) {
+        var listOfSvgFilePaths = this.getListOfSvgFilePaths(svgsFolder);
         var listOfSvgs = this.getListOfSvgs(listOfSvgFilePaths);
         var icons$1 = this.getAllSvgsAsIcons(listOfSvgs);
         return icons$1;
@@ -128,8 +128,8 @@ function jsSvgsGenerator({
     };
 
     this.createIconsLibrary = function createIconsLibrary() {
-        var icons = this.createIconsObject(this.dirpath);
-        var listOfJavascriptSvgs = this.createJavascriptSvgs(this.dirpath);
+        var icons = this.createIconsObject(this.svgsFolder);
+        var listOfJavascriptSvgs = this.createJavascriptSvgs(this.svgsFolder);
         this.writeToFontAwesomeIndexFile(listOfJavascriptSvgs, icons);
     };
 

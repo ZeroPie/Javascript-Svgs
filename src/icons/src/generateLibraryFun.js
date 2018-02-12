@@ -1,11 +1,11 @@
 var jsSvgsGenerator = require('../utils/jsSvgsGeneratorFun');
 
-var dirpath = './svgs/jobs_icons';
+var svgsFolder = './svgs/jobs_icons';
 var libraryTemplate = "./src/icons/templates/libraryTemplate.js";
 var libraryDestination = "./src/icons/@fortawesome/fontawesome-meinestadt/index.js";
 
 var options = {
-    dirpath: dirpath,
+    svgsFolder: svgsFolder,
     normalize: false,
     viewBox: {
         minx: 0,
@@ -19,5 +19,4 @@ var options = {
 };
 
 var jsSvgsGenerator = new jsSvgsGenerator(options);
-console.log(jsSvgsGenerator);
 jsSvgsGenerator.createIconsLibrary();
