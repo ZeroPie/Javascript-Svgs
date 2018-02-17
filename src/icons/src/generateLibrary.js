@@ -1,8 +1,9 @@
-var jsSvgsGenerator = require('../utils/jsSvgsGeneratorFun');
+var jsSvgsGenerator = require("../utils/jsSvgsGenerator");
 
-var svgsFolder = './svgs/jobs_icons';
+var svgsFolder = "./svgs/jobs_icons";
 var libraryTemplate = "./src/icons/templates/libraryTemplate.js";
-var libraryDestination = "./src/icons/@fortawesome/fontawesome-meinestadt/index.js";
+var libraryDestination =
+    "./src/icons/@fortawesome/fontawesome-meinestadt/index.js";
 
 var options = {
     svgsFolder: svgsFolder,
@@ -11,11 +12,11 @@ var options = {
         minx: 0,
         miny: 0,
         width: 44,
-        height: 44,
+        height: 44
     },
-    prefix: 'fas',
+    prefix: "fas",
     libraryTemplate: libraryTemplate,
-    libraryDestination: libraryDestination,
+    libraryDestination: libraryDestination
 };
 
 var jsSvgsGenerator = new jsSvgsGenerator(options);
