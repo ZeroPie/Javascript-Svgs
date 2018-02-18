@@ -34,15 +34,15 @@ function jsSvgsGenerator({
 			prefix: prefix,
 			children: children,
 			viewBox: viewBox,
-			setFilePath: function setFilePath(filePath) {
+			setFilePath: filePath => {
 				this.filePath = filePath;
 				return this;
 			},
-			setPath: function setsvgPath(svgPath) {
+			setPath: svgPath => {
 				this.svgPath = svgPath;
 				return this;
 			},
-			setName: function setName(name) {
+			setName: name => {
 				this.name = name;
 				return this;
 			}
