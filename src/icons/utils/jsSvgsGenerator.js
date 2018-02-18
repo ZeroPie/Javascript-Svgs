@@ -17,7 +17,7 @@ function jsSvgsGenerator({
 	this.prefix = prefix;
 	this.libraryTemplate = libraryTemplate;
 	this.libraryDestination = libraryDestination;
-	this.createSvg = () => {
+	this.createSvg = function createSvg() {
 		var filePath = '',
 			name = '',
 			svgPath = '',
