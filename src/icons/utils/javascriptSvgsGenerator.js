@@ -3,7 +3,7 @@ const path = require('path');
 const readDir = require('readdir');
 const extractSvgPath = require('extract-svg-path');
 
-function jsSvgsGenerator({
+function javascriptSvgsGenerator({
 	svgsFolder: svgsFolder,
 	normalize: normalize,
 	viewBox: viewBox,
@@ -17,6 +17,14 @@ function jsSvgsGenerator({
 	this.prefix = prefix;
 	this.libraryTemplate = libraryTemplate;
 	this.libraryDestination = libraryDestination;
+
+	this.getListOfSvgFilePaths = svgsFolder => {
+		return (listOfSvgFilePaths = readDir.readSync(
+			svgsFolder,
+			['**.svg'],
+			readDir.ABSOLUTE_PATHS
+		));
+	};
 
 	this.createSvg = function createSvg() {
 		var filePath = '',
@@ -50,13 +58,6 @@ function jsSvgsGenerator({
 		};
 	};
 
-	this.getListOfSvgFilePaths = svgsFolder => {
-		return (listOfSvgFilePaths = readDir.readSync(
-			svgsFolder,
-			['**.svg'],
-			readDir.ABSOLUTE_PATHS
-		));
-	};
 
 	this.getListOfSvgs = listOfSvgFilePaths => {
 		let listOfSvgs = [];
@@ -72,13 +73,24 @@ function jsSvgsGenerator({
 		return listOfSvgs;
 	};
 
-	this.getListOfJavaScriptSvgs = listOfSvgs => {
+	this.getListOfJavaScriptSvgs = () => {
 		let listOfJavascriptSvgs = [];
+		let listOfSvgs = this.getListOfSvgs(listOfSvgFilePaths);
 		for (let disSvg of listOfSvgs) {
 			let javaScriptSvg = this.transformSvgToJavascriptSvg(disSvg);
 			listOfJavascriptSvgs.push(javaScriptSvg);
 		}
 		listOfJavascriptSvgs = `${listOfJavascriptSvgs.join('\n')} \n`;
+		return listOfJavascriptSvgs;
+	};
+
+	this.getListOfJavaScriptSvgsAsArray = () => {
+		let listOfSvgs = this.getListOfSvgs(listOfSvgFilePaths);
+		let listOfJavascriptSvgs = [];
+		for (let disSvg of listOfSvgs) {
+			let javaScriptSvg = this.iconClassAndName(disSvg);
+			listOfJavascriptSvgs.push(javaScriptSvg);
+		}
 		return listOfJavascriptSvgs;
 	};
 
@@ -102,6 +114,11 @@ function jsSvgsGenerator({
 		let content = ` { ${prefix}, ${name}, ${icon}};`;
 		let javaScriptSvg = `${variable}${content}`;
 		return javaScriptSvg;
+	};
+
+	this.iconClassAndName = svg => {
+			let icon = `fa-${svg.name}`;
+			return icon;
 	};
 
 	this.createJavascriptSvgs = svgsFolder => {
@@ -136,5 +153,5 @@ function jsSvgsGenerator({
 		this.writeToFontAwesomeIndexFile(listOfJavascriptSvgs, icons);
 	};
 }
+module.exports = javascriptSvgsGenerator;
 
-module.exports = jsSvgsGenerator;
