@@ -1,11 +1,11 @@
 var javascriptSvgsGenerator = require("../utils/javascriptSvgsGenerator");
 
-var svgsFolder = "./svgs/new";
-var libraryTemplate = "./src/icons/templates/libraryTemplate.js";
-var libraryDestination =
-    "./src/icons/@fortawesome/fontawesome-meinestadt/index.js";
+let svgsFolder = "./svgs/new";
+let libraryTemplate = "./src/icons/templates/libraryTemplate.js";
+let libraryDestination = "./src/icons/@fortawesome/fontawesome-meinestadt/index.js";
+let testFileDestination = "./src/icons/test/test.html"
 
-var options = {
+let options = {
     svgsFolder: svgsFolder,
     normalize: false,
     viewBox: {
@@ -16,11 +16,14 @@ var options = {
     },
     prefix: "fas",
     libraryTemplate: libraryTemplate,
-    libraryDestination: libraryDestination
+    libraryDestination: libraryDestination,
+    testFileDestination: testFileDestination
 };
 
 var javascriptSvgsGenerator = new javascriptSvgsGenerator(options);
 javascriptSvgsGenerator.createIconsLibrary();
 let javascriptSvgsArray = javascriptSvgsGenerator.getListOfJavaScriptSvgsAsArray();
+javascriptSvgsGenerator.generateTestHTMLFile();
+
 
 console.log(javascriptSvgsArray);

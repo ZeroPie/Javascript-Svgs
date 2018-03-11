@@ -9,7 +9,8 @@ function javascriptSvgsGenerator({
 	viewBox: viewBox,
 	prefix: prefix,
 	libraryTemplate: libraryTemplate,
-	libraryDestination: libraryDestination
+	libraryDestination: libraryDestination,
+	testFileDestination: testFileDestination
 }) {
 	this.svgsFolder = svgsFolder;
 	this.normalize = normalize;
@@ -17,6 +18,7 @@ function javascriptSvgsGenerator({
 	this.prefix = prefix;
 	this.libraryTemplate = libraryTemplate;
 	this.libraryDestination = libraryDestination;
+	this.testFileDestination = testFileDestination;
 
 	this.getListOfSvgFilePaths = svgsFolder => {
 		return (listOfSvgFilePaths = readDir.readSync(
@@ -84,15 +86,6 @@ function javascriptSvgsGenerator({
 		return listOfJavascriptSvgs;
 	};
 
-	this.getListOfJavaScriptSvgsAsArray = () => {
-		let listOfSvgs = this.getListOfSvgs(listOfSvgFilePaths);
-		let listOfJavascriptSvgs = [];
-		for (let disSvg of listOfSvgs) {
-			let javaScriptSvg = this.iconClassAndName(disSvg);
-			listOfJavascriptSvgs.push(javaScriptSvg);
-		}
-		return listOfJavascriptSvgs;
-	};
 
 	this.getAllSvgsAsIcons = listOfSvgs => {
 		let listOfIcons$1 = [];
@@ -117,9 +110,40 @@ function javascriptSvgsGenerator({
 	};
 
 	this.iconClassAndName = svg => {
-			let icon = `fa-${svg.name}`;
+			let icon = `<i class="fas fa-${svg.name}"></i>`;
 			return icon;
 	};
+
+	this.getListOfJavaScriptSvgsAsArray = () => {
+		let listOfSvgs = this.getListOfSvgs(listOfSvgFilePaths);
+		let listOfJavascriptSvgs = [];
+		for (let disSvg of listOfSvgs) {
+			let javaScriptSvg = this.iconClassAndName(disSvg);
+			listOfJavascriptSvgs.push(javaScriptSvg);
+		}
+		return listOfJavascriptSvgs;
+	};
+
+	this.buildHtml = () => {
+		let testFile = this.getListOfJavaScriptSvgsAsArray();
+			testFile = testFile.join('\n');
+		var script = '<script defer src="../../../dist/javascriptSvgs.js"></script>'
+		return `
+		<html> 
+		   <body> 
+		   	<div class="fa-3x fa-border">
+			   ${testFile} 
+			</div>
+		   </body> 
+		</html>
+		${script}`;
+	  };
+	  
+
+	this.generateTestHTMLFile = () => {
+
+		sander.writeFileSync(testFileDestination, this.buildHtml());
+	}
 
 	this.createJavascriptSvgs = svgsFolder => {
 		let listOfSvgFilePaths = this.getListOfSvgFilePaths(svgsFolder);
@@ -136,15 +160,13 @@ function javascriptSvgsGenerator({
 	};
 
 	this.writeToFontAwesomeIndexFile = (listOfJavascriptSvgs, icons$1) => {
-		let libraryTemplate = this.libraryTemplate;
-		let libraryDestination = this.libraryDestination;
 		let indexFile = sander
-			.readFileSync(libraryTemplate)
+			.readFileSync(this.libraryTemplate)
 			.toString()
 			.split('\n');
 		indexFile.splice(100, 0, `${listOfJavascriptSvgs}\n${icons$1}`);
 		indexFile = indexFile.join('\n');
-		sander.writeFileSync(libraryDestination, indexFile);
+		sander.writeFileSync(this.libraryDestination, indexFile);
 	};
 
 	this.createIconsLibrary = () => {
