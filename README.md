@@ -1,7 +1,4 @@
 #Awesome Svgs
-
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
-
 Transform Svgs into Javascript Svgs.
 
 # Features:
