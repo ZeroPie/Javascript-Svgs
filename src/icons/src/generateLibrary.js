@@ -1,9 +1,9 @@
-var javascriptSvgsGenerator = require("../utils/javascriptSvgsGenerator");
+let JavascriptSvgsGenerator = require("../utils/javascriptSvgsGenerator");
 
 let svgsFolder = "./svgs/new";
 let libraryTemplate = "./src/icons/templates/libraryTemplate.js";
 let libraryDestination = "./src/icons/@fortawesome/fontawesome-meinestadt/index.js";
-let testFileDestination = "./src/icons/test/test.html"
+let testFileDestination = "./src/icons/test/iconsList.html"
 
 let options = {
     svgsFolder: svgsFolder,
@@ -20,10 +20,6 @@ let options = {
     testFileDestination: testFileDestination
 };
 
-var javascriptSvgsGenerator = new javascriptSvgsGenerator(options);
+let javascriptSvgsGenerator = new JavascriptSvgsGenerator(options);
 javascriptSvgsGenerator.createIconsLibrary();
-let javascriptSvgsArray = javascriptSvgsGenerator.getListOfJavaScriptSvgsAsArray();
 javascriptSvgsGenerator.generateTestHTMLFile();
-
-
-console.log(javascriptSvgsArray);
