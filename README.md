@@ -1,4 +1,4 @@
-#Awesome Svgs
+# Awesome Svgs
 Transform Svgs into Javascript Svgs.
 
 # Features:
