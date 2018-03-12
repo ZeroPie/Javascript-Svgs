@@ -5,7 +5,6 @@ const extractSvgPath = require('extract-svg-path');
 
 function javascriptSvgsGenerator({
 	svgsFolder: svgsFolder,
-	normalize: normalize,
 	viewBox: viewBox,
 	prefix: prefix,
 	libraryTemplate: libraryTemplate,
@@ -13,7 +12,6 @@ function javascriptSvgsGenerator({
 	testFileDestination: testFileDestination
 }) {
 	this.svgsFolder = svgsFolder;
-	this.normalize = normalize;
 	this.viewBox = viewBox;
 	this.prefix = prefix;
 	this.libraryTemplate = libraryTemplate;
@@ -32,7 +30,7 @@ function javascriptSvgsGenerator({
 		var filePath = '',
 			name = '',
 			svgPath = '',
-			prefix = 'fas',
+			prefix = this.prefix,
 			icon = '',
 			abbreviation = '',
 			children = [],
@@ -110,7 +108,7 @@ function javascriptSvgsGenerator({
 	};
 
 	this.iconClassAndName = svg => {
-		let icon = `\t\t\t <div class = "fa-border"> <i class = "fas fa-${svg.name}"></i> &lt;i class = &quot;fas fa-${svg.name}&quot;&gt;&lt;/i&gt;</div>`;
+		let icon = `\t\t\t <div class = "fa-border"> <i class = "${svg.prefix} fa-${svg.name}"></i> &lt;i class =&quot; ${svg.prefix} fa-${svg.name}&quot;&gt;&lt;/i&gt;</div>`;
 		return icon;
 	};
 
@@ -156,6 +154,12 @@ function javascriptSvgsGenerator({
 		return icons$1;
 	};
 
+	this.createIconsLibrary = () => {
+		let icons = this.createIconsObject(this.svgsFolder);
+		let listOfJavascriptSvgs = this.createJavascriptSvgs(this.svgsFolder);
+		this.writeToFontAwesomeIndexFile(listOfJavascriptSvgs, icons);
+	};
+
 	this.writeToFontAwesomeIndexFile = (listOfJavascriptSvgs, icons$1) => {
 		let indexFile = sander
 			.readFileSync(this.libraryTemplate)
@@ -164,12 +168,6 @@ function javascriptSvgsGenerator({
 		indexFile.splice(100, 0, `${listOfJavascriptSvgs}\n${icons$1}`);
 		indexFile = indexFile.join('\n');
 		sander.writeFileSync(this.libraryDestination, indexFile);
-	};
-
-	this.createIconsLibrary = () => {
-		let icons = this.createIconsObject(this.svgsFolder);
-		let listOfJavascriptSvgs = this.createJavascriptSvgs(this.svgsFolder);
-		this.writeToFontAwesomeIndexFile(listOfJavascriptSvgs, icons);
 	};
 }
 module.exports = javascriptSvgsGenerator;

@@ -6,7 +6,6 @@ let testFileDestination = "./src/icons/test/iconsList.html"
 
 let options = {
     svgsFolder: svgsFolder,
-    normalize: false,
     viewBox: {
         minx: 0,
         miny: 0,
