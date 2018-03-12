@@ -2,7 +2,7 @@ let JavascriptSvgsGenerator = require("../utils/javascriptSvgsGenerator");
 let svgsFolder = "./svgs/new";
 let libraryTemplate = "./src/icons/templates/libraryTemplate.js";
 let libraryDestination = "./src/icons/@fortawesome/fontawesome-meinestadt/index.js";
-let testFileDestination = "./src/icons/test/iconsList.html"
+let testFileDestination = "./src/icons/test/allIconsList.html"
 
 let options = {
     svgsFolder: svgsFolder,
