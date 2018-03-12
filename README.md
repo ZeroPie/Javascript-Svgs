@@ -15,7 +15,7 @@ Transform Svgs into Javascript Svgs.
 Dillinger uses a number of open source projects to work properly:
 
 * [node.js] - evented I/O for the backend
-* [Express] - fast node.js network app framework [@tjholowaychuk]
+* [FontAwesome] -
 * [Gulp] - the streaming build system
 
 The @fortawesome/fontawesome package contains all the functionality for generating icons but none of the content.
