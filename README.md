@@ -3,7 +3,7 @@ Transform Svgs into Javascript Svgs.
 
 # Features:
 
-* Put Svgs in the Svgs folder and watch them magically convert to Javascript
+Put Svgs in the Svgs folder and watch them magically convert to Javascript
 
 ### Tech
 
