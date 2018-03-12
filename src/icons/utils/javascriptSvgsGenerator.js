@@ -110,7 +110,7 @@ function javascriptSvgsGenerator({
 	};
 
 	this.iconClassAndName = svg => {
-		let icon = `\t\t\t <div class = "fa-border"> <div class = "fa-border"> <i class = "fas fa-${svg.name}"></i> </div> <div class = "fa-border"> &lt;i class = &quot;fas fa-${svg.name}&quot;&gt;&lt;/i&gt; </div> </div>`;
+		let icon = `\t\t\t <div class = "fa-border"> <i class = "fas fa-${svg.name}"></i> &lt;i class = &quot;fas fa-${svg.name}&quot;&gt;&lt;/i&gt;</div>`;
 		return icon;
 	};
 
@@ -137,6 +137,7 @@ function javascriptSvgsGenerator({
 		${script}`;
 	  };
 	  
+
 	this.generateTestHTMLFile = () => {
 		sander.writeFileSync(testFileDestination, this.buildHtml());
 	}
